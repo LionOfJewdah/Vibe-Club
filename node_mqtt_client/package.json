@@ -1,0 +1,27 @@
+{
+  "name": "vibe_club_nodejs",
+  "version": "1.0.0",
+  "description": "Package for publishing MQTT messages from Vibe Bar-end to Back-end",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"No test specified\""
+  },
+  "contributors": [
+    {
+      "name": "David Silverstone",
+      "email": "dsilvers@usc.edu"
+    },
+    {
+      "name": "Aya Shimizu",
+      "email": "ashimizu@usc.edu"
+    }
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "^2.17.0",
+    "yargs": "^11.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
