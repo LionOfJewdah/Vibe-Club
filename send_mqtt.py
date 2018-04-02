@@ -11,13 +11,13 @@ JSON_template = """{{
 	\"camera_ID\": 1
 }}"""
 
-def SendMessage(host, payload, topic="demo/davids_pi"):
+def SendMessage(host, payload, topic="vibe/pi_01"):
 	print("Sending message \"{0}\" to host {1} under topic {2}".format(
 		payload, host, topic)
 	)
 	publish.single(topic, payload, hostname=host)
 
-def SendPopulationCount(host, json_src, count, topic="demo/davids_pi"):
+def SendPopulationCount(host, json_src, count, topic="vibe/pi_01"):
 	SendMessage(host, json_src.format(count), topic)
 
 host = sys.argv[1]
