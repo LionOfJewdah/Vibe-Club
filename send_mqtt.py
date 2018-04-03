@@ -20,7 +20,11 @@ def SendMessage(host, payload, topic="vibe/pi_01"):
 def SendPopulationCount(host, json_src, count, topic="vibe/pi_01"):
 	SendMessage(host, json_src.format(count), topic)
 
-host = sys.argv[1]
+if (len (sys.argv) > 1):
+	host = sys.argv[1]
+else:
+	host = "localhost"
+
 populations = array('H', [4, 4, 5, 6, 6, 5, 6, 5, 5, 4, 3, 4])
 populationCount = 4
 timer = scheduler(time.time, time.sleep)
