@@ -28,14 +28,14 @@ if (len (sys.argv) > 1):
 else:
 	host = "localhost"
 
-populations = array('H', [4, 4, 5, 6, 6, 5, 6, 5, 5, 4, 3, 4])
-populationCount = 4
+populations = array('H', [110, 111, 108, 105, 103, 101, 99, 102, 104, 106, 109, 111])
+populationCount = 110
 timer = scheduler(time.time, time.sleep)
 def PeriodicSend(task, it):
 	populationCount = populations[it]
 	SendPopulationCount(host, JSON_template, populationCount)
-	it = int((it + 1) % (60 / 5))
-	timer.enter(5, 1, PeriodicSend, (task, it,))
+	it = int((it + 1) % len(populations))
+	timer.enter(8, 1, PeriodicSend, (task, it,)) #timer.enter(seconds, priority, task, (params))
 
 timer.enter(0, 1, PeriodicSend, (timer, 0))
 timer.run()
