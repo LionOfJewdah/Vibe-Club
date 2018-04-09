@@ -23,14 +23,14 @@ def SendMessage(host, port, payload, topic = myTopic):
 def SendPopulationCount(host, port, json_src, count, topic = myTopic):
 	SendMessage(host, port, json_src.format(count), topic)
 
+host = "localhost"
+port = 1883
+
 if (len (sys.argv) > 1):
 	host = sys.argv[1]
 	if (len (sys.argv) > 2):
 		port = int(sys.argv[2])
-	else:
-		port = 1883
-else:
-	host = "localhost"
+
 
 populations = array('H', [110, 111, 108, 105, 103, 101, 99, 102, 104, 106, 109, 111])
 populationCount = 110
