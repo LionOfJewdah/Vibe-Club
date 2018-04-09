@@ -14,17 +14,21 @@ camera_ID = 1
 sensorType = "camera"
 myTopic = "vibe/venue_{0}/{1}_{2}".format(venue_ID, sensorType, camera_ID)
 
-def SendMessage(host, payload, topic = myTopic):
-	print("Sending message \"{0}\" to host {1} under topic '{2}'".format(
-		payload, host, topic)
+def SendMessage(host, port, payload, topic = myTopic):
+	print("Sending message \"{0}\" to host {1}:{2} under topic '{3}'".format(
+		payload, host, port, topic)
 	)
-	publish.single(topic, payload, hostname = host)
+	publish.single(topic, payload, port = port, hostname = host)
 
-def SendPopulationCount(host, json_src, count, topic = myTopic):
-	SendMessage(host, json_src.format(count), topic)
+def SendPopulationCount(host, port, json_src, count, topic = myTopic):
+	SendMessage(host, port, json_src.format(count), topic)
 
 if (len (sys.argv) > 1):
 	host = sys.argv[1]
+	if (len (sys.argv) > 2):
+		port = int(sys.argv[2])
+	else:
+		port = 1883
 else:
 	host = "localhost"
 
@@ -33,7 +37,7 @@ populationCount = 110
 timer = scheduler(time.time, time.sleep)
 def PeriodicSend(task, it):
 	populationCount = populations[it]
-	SendPopulationCount(host, JSON_template, populationCount)
+	SendPopulationCount(host, port, JSON_template, populationCount)
 	it = int((it + 1) % len(populations))
 	timer.enter(8, 1, PeriodicSend, (task, it,)) #timer.enter(seconds, priority, task, (params))
 
