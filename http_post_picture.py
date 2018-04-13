@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 import requests, sys
+from pathlib import Path
+home = str(Path.home())
 
 hostname = "localhost"
 API_port = 8000
@@ -9,10 +11,10 @@ camera_ID = 1
 upload_URL = "http://{0}:{1}/api/post/venue/{2}/{3}?sensor_ID={4}".format(
 	hostname, API_port, venue_ID, sensorType, camera_ID
 )
-picToSend = '~/computer_vision/images/t13.jpg'
+picToSend = '{0}/computer_vision/images/t13.jpg'.format(home)
 
 def SendPicture(filename, url = upload_URL):
-	files = {'files': [open(filename, 'rb'), open(filename, 'rb')]}
+	files = {'file': (open(filename, 'rb'))}
 	response = requests.post(upload_URL, files = files)
 	return response
 
@@ -24,6 +26,8 @@ def WriteResponse(response):
 
 if (len (sys.argv) > 1):
 	picToSend = sys.argv[1]
+	if (len (sys.argv) > 2):
+		picToSend2 = sys.argv[2]
 
 response = SendPicture(picToSend)
 WriteResponse(response)

@@ -21,7 +21,7 @@ upload_URL = "http://{0}:{1}/api/post/venue/{2}/{3}?sensor_ID={4}".format(
 )
 
 def SendPicture(filename, url = upload_URL):
-	file = {'media': open(filename, 'rb')}
+	file = {'file': (open(filename, 'rb'))}
 	response = requests.post(upload_URL, files = file)
 	return response
 
@@ -52,8 +52,6 @@ while rval:
 		response = SendPicture(imageFile)
 		WriteResponse(response)
 
-		
 
 OpenCV.destroyWindow("preview")
-
 

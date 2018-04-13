@@ -11,7 +11,7 @@ JSON_template = """{{
 	\"numberOfPeople\": {0}
 }}"""
 
-venue_ID = 1
+venue_ID = 2
 camera_ID = 1
 sensorType = "camera"
 myTopic = "vibe/venue_{0}/{1}_{2}".format(venue_ID, sensorType, camera_ID)
