@@ -26,8 +26,9 @@ def SendPicture(filename, url = upload_URL):
 	return response
 
 def WriteResponse(response):
+	print("Got response: ", response, ".", sep="")
 	fd = open("response.xml", "w")
-	fd.write(response.txt)
+	fd.write(response.text)
 	fd.close()
 
 def SavePicture(frame):
@@ -49,7 +50,7 @@ while rval:
 		break
 	else:
 		response = SendPicture(imageFile)
-		print("Got response: ", response, ".", sep="")
+		WriteResponse(response)
 
 		
 
