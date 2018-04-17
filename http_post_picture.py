@@ -4,7 +4,7 @@ from pathlib import Path
 home = str(Path.home())
 
 hostname = "localhost"
-API_port = 8000
+API_port = 24655
 venue_ID = 3
 sensorType = "camera"
 camera_ID = 1
