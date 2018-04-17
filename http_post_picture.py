@@ -5,7 +5,7 @@ home = str(Path.home())
 
 hostname = "localhost"
 API_port = 8000
-venue_ID = 2
+venue_ID = 3
 sensorType = "camera"
 camera_ID = 1
 upload_URL = "http://{0}:{1}/api/post/venue/{2}/{3}?sensor_ID={4}".format(

@@ -13,7 +13,7 @@ cameras.init()
 camera = cameras.Camera(cameras.list_cameras()[0])
 camera.start()
 
-venue_ID = 2
+venue_ID = 3
 sensorType = "camera"
 camera_ID = 1
 myTopic = "vibe/venue_{0}/{1}_{2}".format(venue_ID, sensorType, camera_ID)
