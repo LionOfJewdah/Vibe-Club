@@ -36,7 +36,7 @@ def WriteResponse(response):
 	fd.close()
 
 def SavePicture(frame):
-	filename = 'pictures/pic_{0}.png'.format(str(datetime.now()))
+	filename = 'pictures/DSilvs_is_the_fucking_man.png'
 	OpenCV.imwrite(filename, frame)
 	return filename
 
