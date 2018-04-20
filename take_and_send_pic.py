@@ -31,14 +31,20 @@ def SendPicture(filename, url = upload_URL):
 
 def WriteResponse(response):
 	print("Got response: ", response, ".", sep="")
-	fd = open("response.xml", "w")
-	fd.write(response.text)
-	fd.close()
+	#fd = open("response.xml", "w")
+	#fd.write(response.text)
+	#fd.close()
 
 def SavePicture(frame):
 	filename = 'pictures/DSilvs.png'
 	OpenCV.imwrite(filename, frame)
 	return filename
+
+def ConfirmSend(imageFile):
+	print(datetime.now(), "picture", imageFile, "sent.")
+
+def RejectSend():
+	print(datetime.now(), "API didn't connect.")
 
 if camera.isOpened(): # try to get the first frame
 	rval, frame = camera.read()
@@ -63,10 +69,10 @@ while rval:
 			imageFile = SavePicture(frame)
 			try:
 				response = SendPicture(imageFile)
-				print(datetime.now(), "picture", imageFile, "sent.")
-				#WriteResponse(response)
+				ConfirmSend(imageFile)
+				WriteResponse(response)
 			except requests.exceptions.ConnectionError:
-				print(datetime.now(), "API didn't connect.")
+				RejectSend()
 			haventSentThisMinute = False
 	else:
 		haventSentThisMinute = True
