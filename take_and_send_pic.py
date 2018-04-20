@@ -45,7 +45,7 @@ if camera.isOpened(): # try to get the first frame
 else:
 	rval = False
 
-frame_ms = 200
+frame_ms = 250
 haventSentThisMinute = True
 firstTime = datetime.now()
 oneMinute = timedelta(seconds = 60)
@@ -72,4 +72,3 @@ while rval:
 		haventSentThisMinute = True
 
 OpenCV.destroyWindow("bar picture")
-
