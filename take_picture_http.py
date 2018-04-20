@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import cv2 as OpenCV
-from datetime import datetime
+from datetime import datetime, timedelta
 from sched import scheduler
 import requests, sys
 
@@ -36,19 +36,20 @@ def WriteResponse(response):
 	fd.close()
 
 def SavePicture(frame):
-	filename = 'pictures/DSilvs_is_the_fucking_man.png'
+	filename = 'pictures/DSilvs.png'
 	OpenCV.imwrite(filename, frame)
 	return filename
-
-frame_ms = 100
-intervalCount = 0
-oneMinute = 60 * 1000
-framesPerMinute = oneMinute / frame_ms
 
 if camera.isOpened(): # try to get the first frame
 	rval, frame = camera.read()
 else:
 	rval = False
+
+frame_ms = 200
+haventSentThisMinute = True
+firstTime = datetime.now()
+oneMinute = timedelta(seconds = 60)
+fiveSecondWindow = timedelta(seconds = 5)
 
 while rval:
 	OpenCV.imshow("bar picture", frame)
@@ -56,15 +57,19 @@ while rval:
 	key = OpenCV.waitKey(frame_ms)
 	if key == ESC:
 		break
-	if (intervalCount == 0):
-		imageFile = SavePicture(frame)
-		try:
-			response = SendPicture(imageFile)
-			#WriteResponse(response)
-		except requests.exceptions.ConnectionError:
-			print("Shit didn't connect.")
-	intervalCount += 1
-	intervalCount %= framesPerMinute
+	difference = (datetime.now() - firstTime) % oneMinute
+	if (difference < fiveSecondWindow):
+		if haventSentThisMinute:
+			imageFile = SavePicture(frame)
+			try:
+				response = SendPicture(imageFile)
+				print(datetime.now(), "picture", imageFile, "sent.")
+				#WriteResponse(response)
+			except requests.exceptions.ConnectionError:
+				print(datetime.now(), "API didn't connect.")
+			haventSentThisMinute = False
+	else:
+		haventSentThisMinute = True
 
 OpenCV.destroyWindow("bar picture")
 
