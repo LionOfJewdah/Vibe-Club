@@ -62,10 +62,9 @@ while rval:
 			response = SendPicture(imageFile)
 			#WriteResponse(response)
 		except requests.exceptions.ConnectionError:
-			# shut the fuck up
-			0
-		intervalCount += 1
-		intervalCount %= framesPerMinute
+			print("Shit didn't connect.")
+	intervalCount += 1
+	intervalCount %= framesPerMinute
 
 OpenCV.destroyWindow("bar picture")
 
