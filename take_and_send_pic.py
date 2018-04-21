@@ -19,6 +19,8 @@ camera_ID = 1
 
 if (len(sys.argv) > 1):
 	hostname = sys.argv[1]
+if (len(sys.argv) > 2):
+	venue_ID = sys.argv[2]
 
 upload_URL = "http://{0}:{1}/api/post/venue/{2}/{3}?sensor_ID={4}".format(
 	hostname, API_port, venue_ID, sensorType, camera_ID
