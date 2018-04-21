@@ -13,7 +13,7 @@ ENTER = 13
 
 hostname = "localhost"
 API_port = 24655
-venue_ID = 3
+venue_ID = 1
 sensorType = "camera"
 camera_ID = 1
 
@@ -36,7 +36,10 @@ def WriteResponse(response):
 	#fd.close()
 
 def SavePicture(frame):
-	filename = 'pictures/DSilvs.png'
+	time = datetime.now()
+	filename = 'pictures/DSilvs_{:d}:{:02d}:{:02d}.png'.format(
+		time.hour, time.minute, time.second
+	)
 	OpenCV.imwrite(filename, frame)
 	return filename
 
