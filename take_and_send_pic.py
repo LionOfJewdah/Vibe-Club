@@ -33,9 +33,7 @@ def SendPicture(filename, url = upload_URL):
 
 def WriteResponse(response):
 	print("Got response: ", response, ".", sep="")
-	#fd = open("response.xml", "w")
-	#fd.write(response.text)
-	#fd.close()
+	#print(response.text)
 
 def SavePicture(frame):
 	time = datetime.now()
@@ -59,7 +57,7 @@ else:
 frame_ms = 250
 haventSentThisMinute = True
 firstTime = datetime.now()
-oneMinute = timedelta(seconds = 60)
+sendPeriod = timedelta(seconds = 60)
 fiveSecondWindow = timedelta(seconds = 5)
 
 while rval:
@@ -68,7 +66,7 @@ while rval:
 	key = OpenCV.waitKey(frame_ms)
 	if key == ESC:
 		break
-	difference = (datetime.now() - firstTime) % oneMinute
+	difference = (datetime.now() - firstTime) % sendPeriod
 	if (difference < fiveSecondWindow):
 		if haventSentThisMinute:
 			imageFile = SavePicture(frame)
