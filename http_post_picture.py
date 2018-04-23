@@ -32,9 +32,10 @@ def SendPicture(filename, url = upload_URL):
 
 def WriteResponse(response):
 	print("Got response: ", response, ".", sep="")
-	fd = open("response.xml", "w")
-	fd.write(response.text)
-	fd.close()
+	print(response.text)
+	# fd = open("response.xml", "w")
+	# fd.write(response.text)
+	# fd.close()
 
 
 response = SendPicture(picToSend)
