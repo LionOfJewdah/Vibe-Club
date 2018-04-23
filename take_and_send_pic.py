@@ -2,7 +2,6 @@
 
 import cv2 as OpenCV
 from datetime import datetime, timedelta
-from sched import scheduler
 import requests, sys
 
 OpenCV.namedWindow("bar picture")
@@ -37,7 +36,7 @@ def WriteResponse(response):
 
 def SavePicture(frame):
 	time = datetime.now()
-	filename = 'pictures/DSilvs_{:d}:{:02d}:{:02d}.png'.format(
+	filename = 'pictures/picture_{:d}:{:02d}:{:02d}.png'.format(
 		time.hour, time.minute, time.second
 	)
 	OpenCV.imwrite(filename, frame)
