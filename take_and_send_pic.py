@@ -11,7 +11,7 @@ camera = OpenCV.VideoCapture(0)
 ESC = 27
 ENTER = 13
 
-hostname = "localhost"
+hostname = "vibe.hopto.org"
 API_port = 24655
 venue_ID = 1
 sensorType = "camera"
@@ -54,11 +54,11 @@ if camera.isOpened(): # try to get the first frame
 else:
 	rval = False
 
-frame_ms = 250
+frame_ms = 200
 haventSentThisMinute = True
 firstTime = datetime.now()
-sendPeriod = timedelta(seconds = 60)
-fiveSecondWindow = timedelta(seconds = 5)
+sendPeriod = timedelta(seconds = 5)
+sendWindow = timedelta(seconds = 1)
 
 while rval:
 	OpenCV.imshow("bar picture", frame)
@@ -67,7 +67,7 @@ while rval:
 	if key == ESC:
 		break
 	difference = (datetime.now() - firstTime) % sendPeriod
-	if (difference < fiveSecondWindow):
+	if (difference < sendWindow):
 		if haventSentThisMinute:
 			imageFile = SavePicture(frame)
 			try:
