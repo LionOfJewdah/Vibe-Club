@@ -4,15 +4,15 @@ from pathlib import Path
 
 hostname = "vibe.hopto.org"
 API_port = 24655
-venue_ID = 3
+venue_ID = 1
 sensorType = "camera"
 camera_ID = 1
 picToSend = ""
 
 if (len(sys.argv) > 1):
-	hostname = sys.argv[1]
+	picToSend = sys.argv[1]
 	if (len(sys.argv) > 2):
-		picToSend = sys.argv[2]
+		hostname = sys.argv[2]
 		if (len(sys.argv) > 3):
 			venue_ID = sys.argv[3]
 			if (len(sys.argv) > 4):
