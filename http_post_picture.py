@@ -21,7 +21,7 @@ else:
 	home = str(Path.home())
 	picToSend = '{0}/computer_vision/images/LavaLab 03 07.jpg'.format(home)
 
-upload_URL = "http://{0}:{1}/api/post/venue/{2}/{3}?sensor_ID={4}".format(
+upload_URL = "http://{0}:{1}/api/post/venue/{2}/{3}/{4}".format(
 	hostname, API_port, venue_ID, sensorType, camera_ID
 )
 
