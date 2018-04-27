@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 import cv2 as OpenCV
-from datetime import datetime, timedelta
-import requests, sys, shutil
+from datetime import datetime
+import requests, sys
 
 ESC = 27
 ENTER = 13
@@ -32,7 +32,7 @@ upload_URL = "http://{0}:{1}/api/post/venue/{2}/{3}/{4}".format(
 
 def SendPicture(filename, url = upload_URL):
 	file = {'file': (open(filename, 'rb'))}
-	response = requests.post(upload_URL, files = file)
+	response = requests.post(upload_URL, files = file, timeout=3)
 	return response
 
 def ShowResponse(response):
@@ -58,9 +58,6 @@ def SavePicture(frame):
 	OpenCV.imwrite(filename, frame)
 	return filename
 
-def ConfirmSend(imageFile):
-	print(datetime.now(), "picture", imageFile, "sent.")
-
 def RejectSend():
 	print(datetime.now(), "API didn't connect.")
 
@@ -69,7 +66,7 @@ if camera.isOpened(): # try to get the first frame
 else:
 	rval = False
 
-frame_ms = 100
+frame_ms = 250
 
 while rval:
 	OpenCV.imshow("live preview", frame)
@@ -77,14 +74,13 @@ while rval:
 	key = OpenCV.waitKey(frame_ms)
 	if key == ESC:
 		break
-	if key == ENTER:
-		imageFile = SavePicture(frame)
-		try:
-			response = SendPicture(imageFile)
-			ConfirmSend(imageFile)
-			ShowResponse(response)
-		except requests.exceptions.ConnectionError:
-			RejectSend()
-
+	imageFile = SavePicture(frame)
+	try:
+		response = SendPicture(imageFile)
+		ShowResponse(response)
+	except requests.exceptions.ConnectionError:
+		RejectSend()
+	except requests.exceptions.ReadTimeout:
+		print("send timeout")
 
 OpenCV.destroyWindow("live preview")

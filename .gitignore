@@ -102,3 +102,7 @@ ENV/
 
 pictures/
 response.xml
+*.jpg
+*.png
+*.jpeg
+*.gif

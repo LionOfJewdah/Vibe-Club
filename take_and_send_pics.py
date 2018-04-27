@@ -28,7 +28,7 @@ upload_URL = "http://{0}:{1}/api/post/venue/{2}/{3}/{4}".format(
 
 def SendPicture(filename, url = upload_URL):
 	file = {'file': (open(filename, 'rb'))}
-	response = requests.post(upload_URL, files = file)
+	response = requests.post(upload_URL, files = file, timeout = 2)
 	return response
 
 def WriteResponse(response):
@@ -37,7 +37,7 @@ def WriteResponse(response):
 
 def SavePicture(frame):
 	time = datetime.now()
-	filename = 'pictures/picture_{:d}:{:02d}:{:02d}.png'.format(
+	filename = 'pictures/picture_{:d}-{:02d}-{:02d}.png'.format(
 		time.hour, time.minute, time.second
 	)
 	OpenCV.imwrite(filename, frame)
@@ -65,4 +65,6 @@ while notDone:
 		WriteResponse(response)
 	except requests.exceptions.ConnectionError:
 		RejectSend()
+	except requests.exceptions.ReadTimeout:
+		print("send timeout")
 	time.sleep(timeBetweenSends)
