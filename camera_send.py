@@ -23,7 +23,6 @@ if (len(sys.argv) > 3):
 if (len(sys.argv) > 4):
 	camera_ID = sys.argv[4]
 
-OpenCV.namedWindow("live preview")
 camera = OpenCV.VideoCapture(camera_port)
 
 upload_URL = "http://{0}:{1}/api/post/venue/{2}/{3}/{4}".format(
@@ -46,7 +45,7 @@ def ShowResponse(response):
 				for chunk in response:
 					f.write(chunk)
 			picToShow = OpenCV.imread(pic)
-			OpenCV.imshow("Computer vision response", picToShow);
+			OpenCV.imshow("Computer vision live stream", picToShow);
 		else:
 			print(response.text)
 
@@ -69,7 +68,6 @@ else:
 frame_ms = 250
 
 while rval:
-	OpenCV.imshow("live preview", frame)
 	rval, frame = camera.read()
 	key = OpenCV.waitKey(frame_ms)
 	if key == ESC:
