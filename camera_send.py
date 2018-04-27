@@ -23,6 +23,7 @@ if (len(sys.argv) > 3):
 if (len(sys.argv) > 4):
 	camera_ID = sys.argv[4]
 
+windowName = "Computer vision live stream"
 camera = OpenCV.VideoCapture(camera_port)
 
 upload_URL = "http://{0}:{1}/api/post/venue/{2}/{3}/{4}".format(
@@ -31,7 +32,7 @@ upload_URL = "http://{0}:{1}/api/post/venue/{2}/{3}/{4}".format(
 
 def SendPicture(filename, url = upload_URL):
 	file = {'file': (open(filename, 'rb'))}
-	response = requests.post(upload_URL, files = file, timeout=3)
+	response = requests.post(upload_URL, files = file, timeout = 3)
 	return response
 
 def ShowResponse(response):
@@ -45,7 +46,8 @@ def ShowResponse(response):
 				for chunk in response:
 					f.write(chunk)
 			picToShow = OpenCV.imread(pic)
-			OpenCV.imshow("Computer vision live stream", picToShow);
+			picToShow = OpenCV.resize(picToShow, (1280, 720))
+			OpenCV.imshow(windowName, picToShow);
 		else:
 			print(response.text)
 

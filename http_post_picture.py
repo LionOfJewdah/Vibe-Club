@@ -32,11 +32,16 @@ def SendPicture(filename, url = upload_URL):
 
 def WriteResponse(response):
 	print("Got response: ", response, ".", sep="")
-	print(response.text)
-	# fd = open("response.xml", "w")
-	# fd.write(response.text)
-	# fd.close()
-
+	if response.status_code == 200:
+		content_type = response.headers.get('content-type')
+		if content_type == 'image/jpeg':
+			img = response.raw.read()
+			pic = "response.jpg"
+			with open(pic, 'wb') as f:
+				for chunk in response:
+					f.write(chunk)
+		else:
+			print(response.text)
 
 response = SendPicture(picToSend)
 WriteResponse(response)
